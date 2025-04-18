@@ -31,7 +31,7 @@ As DevOps revolutionised development by breaking down silos and increasing agili
 
 ## Cultural Shift and FinOps Team
 
-![FinOps Team Organization](/images/finops-team.webp)
+![FinOps Team Organization](/images/posts/finops-team.webp)
 
 Key organizational principles:
 - All teams have a say in FinOps
