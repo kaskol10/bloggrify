@@ -20,6 +20,20 @@ jobs:
 
             -   name: Install dependencies
                 run: npm install
+                env:
+                    BLOGGRIFY_EPOXIA_LICENSE: ${{ secrets.BLOGGRIFY_EPOXIA_LICENSE }}
+
+            # Add debugging steps
+            -   name: Debug package installation
+                run: |
+                    echo "Package.json content:"
+                    cat package.json
+                    echo "\nChecking @bloggrify/epoxia in node_modules:"
+                    ls -la node_modules/@bloggrify/epoxia || echo "Directory not found"
+                    echo "\nNPM list for @bloggrify/epoxia:"
+                    npm ls @bloggrify/epoxia
+                    echo "\nPackage contents:"
+                    ls -R node_modules/@bloggrify/epoxia || echo "Cannot list contents"
 
             - name: Install Playwright
               run: npm install -D @playwright/test@latest
