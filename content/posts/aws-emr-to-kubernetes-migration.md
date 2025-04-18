@@ -116,7 +116,7 @@ The main achievement here was being able to get rid of the in-house solution whi
 
 Once the migration had been completed, it was enough to compare with the EMR solution to review how well the job had been performed.
 
-![Performance Comparison](/images/posts/emr-performance-comparison.webp)
+![Performance Comparison](/images/posts/emr-comparison-performance.webp)
 
 ### Cost-effectiveness
 

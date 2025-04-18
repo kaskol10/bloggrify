@@ -169,4 +169,4 @@ ArgoRollouts offers enhancements to the usual Kubernetes deployment strategies, 
 
 I'm a Platform Engineer Architect specializing in cloud-native technologies and engineering leadership. I focus on building scalable, reliable deployment pipelines and cloud infrastructure.
 
-[Connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](contact) for more information.
+[Connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](/contact) for more information.
