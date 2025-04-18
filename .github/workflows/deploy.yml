@@ -60,7 +60,7 @@ jobs:
               with:
                 apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                 accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-                projectName: blog  # Replace with your Cloudflare Pages project name
+                projectName: bloggrify  # Replace with your Cloudflare Pages project name
                 directory: dist
                 # Optional: Add a specific branch name
                 branch: main
