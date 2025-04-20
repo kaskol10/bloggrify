@@ -29,8 +29,8 @@ export default defineAppConfig({
     },
 
     newsletter: {
-        enabled: false,
-        form_action: 'https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024',
+        enabled: true,
+        form_action: 'https://dashboard.mailerlite.com/forms/1455323/151766576435037399/share',
         provider: 'mailerlite'
     },
 
