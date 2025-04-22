@@ -191,8 +191,8 @@ export default defineAppConfig({
             status: 'certification',
         },
         {
-            name: 'Advisor',
-            description: 'Advisor in Resizes 2024-06/currently',
+            name: 'Co-Founder & Advisor',
+            description: 'Co-Founder & Advisor in Resizes 2024-06/currently',
             url: 'https://resiz.es/',
             image: '/images/certs/resizes.svg',
             status: 'work'
@@ -452,22 +452,22 @@ export default defineAppConfig({
         {
             name: 'DevOps Engineer',
             description: 'DevOps Engineer in DXC. 2015-10/2018-01',
-            url: 'https://k8scockpit.tech/images/certs/dxc.png',
-            image: '/images/certs/dxc.png',
+            url: 'https://dxc.com/us/en',
+            image: '/images/certs/dxc.jpeg',
             status: 'work'
         },
         {
             name: 'Network Engineer',
             description: 'Network Engineer in Informática El Corte Inglés. 2014-07/2015-07',
             url: 'https://k8scockpit.tech/images/certs/iecisa.png',
-            image: '/images/certs/iecisa.png',
+            image: '/images/certs/iecisa.jpeg',
             status: 'work'
         },
         {
             name: 'IoT Research',
             description: 'IoT Research in Ik4-Ikerlan center. 2013-10/2014-03',
-            url: 'https://k8scockpit.tech/images/certs/ikerlan.png',
-            image: '/images/certs/ikerlan.png',
+            url: 'https://www.ikerlan.es/en',
+            image: '/images/certs/ikerlan.jpeg',
             status: 'work'
         }
     ],
