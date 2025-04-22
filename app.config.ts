@@ -29,7 +29,7 @@ export default defineAppConfig({
     },
 
     newsletter: {
-        enabled: true, 
+        enabled: false, 
         form_action: 'https://dashboard.mailerlite.com/forms/1455323/151766576435037399/share',
         provider: 'mailerlite'
     },
