@@ -13,6 +13,11 @@ export default defineNuxtConfig({
                         },
                     ]
                     : []),
+                {
+                    src: 'https://static.mailerlite.com/js/w/webforms.min.js?v66d7f04ed8b3a6c6412454f5a8e909ec',
+                    async: true,
+                    body: true
+                }
             ],
         },
     },

@@ -29,7 +29,7 @@ export default defineAppConfig({
     },
 
     newsletter: {
-        enabled: true,
+        enabled: false, 
         form_action: 'https://dashboard.mailerlite.com/forms/1455323/151766576435037399/share',
         provider: 'mailerlite'
     },
@@ -78,6 +78,13 @@ export default defineAppConfig({
     },
 
     portfolio: [
+        {
+            name: 'Understanding the EU Cyber Resilience Act CRA LFEL1001',
+            description: 'Understanding the EU Cyber Resilience Act CRA LFEL1001 certification. 2025-04-21',
+            url: 'https://k8scockpit.tech/images/certs/cra.pdf',
+            image: '/images/certs/cra.png',
+            status: 'certification',
+        },
         {
             name: 'Alibaba Cloud DevOps Engineer',
             description: 'Alibaba Cloud DevOps Engineer certification from Alibaba Cloud. 2021-01-14',
