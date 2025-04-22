@@ -41,7 +41,6 @@ jobs:
                 run: |
                     mkdir -p components/themes/epoxia
                     ln -s ../../../node_modules/@bloggrify/epoxia/components/content/EpoxiaHeroSection.vue components/themes/epoxia/HeroSection.vue
-                    ln -s ../../../node_modules/@bloggrify/epoxia/components/content/EpoxiaNewsletterForm.vue components/themes/epoxia/NewsletterForm.vue
                     ln -s ../../../node_modules/@bloggrify/epoxia/components/content/EpoxiaHomeListOfPosts.vue components/themes/epoxia/EpoxiaHomeListOfPosts.vue
 
             - name: Install Playwright
