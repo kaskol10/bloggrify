@@ -200,8 +200,8 @@ export default defineAppConfig({
         {
             name: 'Certified Argo Project Associate',
             description: 'Certified Argo Project Associate certification from The Linux Foundation. 2024-03-06',
-            url: 'https://k8scockpit.tech/images/certs/CertifiedArgoProjectAssociate.pdf',
-            image: '/images/certs/CertifiedArgoProjectAssociate.png',
+            url: 'https://k8scockpit.tech/images/certs/capa.pdf',
+            image: '/images/certs/capa.png',
             status: 'certification',
         },
         {
