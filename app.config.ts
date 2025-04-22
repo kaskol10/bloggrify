@@ -464,8 +464,8 @@ export default defineAppConfig({
             status: 'work'
         },
         {
-            name: 'IoT Research',
-            description: 'IoT Research in Ik4-Ikerlan center. 2013-10/2014-03',
+            name: 'IoT Research Engineer',
+            description: 'IoT Research Engineer in Ik4-Ikerlan center. 2013-10/2014-03',
             url: 'https://www.ikerlan.es/en',
             image: '/images/certs/ikerlan.jpeg',
             status: 'work'
