@@ -212,6 +212,13 @@ export default defineAppConfig({
             status: 'talk',
         },
         {
+            name: 'E-commerce Website',
+            description: 'Create e-commerce website for Bitke 2023-11',
+            url: 'https://bitke.es/',
+            image: '/images/certs/bitke.webp',
+            status: 'work'
+        },
+        {
             name: 'Made Load Testing Dev-Friendly Again! When K6 meets Argo',
             description: 'Speaker at KCD Munich 2022. 2022-10-12',
             url: 'https://docs.google.com/presentation/d/1ujIw4NCcU3M2CVviTZC5GvbPjSvylTDqiCPMqxWUb6A/edit?usp=sharing',
