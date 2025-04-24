@@ -1,9 +1,6 @@
 <template>
   <div class="newsletter-form">
-    <div class="ml-form-embed"
-      data-account="1455323"
-      data-form="151766576435037399">
-    </div>
+    <div class="ml-embedded" data-form="151766576435037399"></div>
   </div>
 </template>
 
@@ -11,10 +8,10 @@
 import { onMounted } from 'vue'
 
 onMounted(() => {
-  // Cargar el script de MailerLite
+  // Crear y cargar el script de MailerLite
   const script = document.createElement('script')
-  script.src = "https://static.mailerlite.com/js/w/webforms.min.js"
-  script.type = "text/javascript"
+  script.src = "https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024"
+  script.async = true
   document.body.appendChild(script)
 })
 </script>
