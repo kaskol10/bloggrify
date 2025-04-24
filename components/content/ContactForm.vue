@@ -1,6 +1,6 @@
 <template>
   <form
-    action="https://formspree.io/f/YOUR_FORM_ID"
+    action="https://formspree.io/f/xblojbge"
     method="POST"
     class="max-w-2xl mx-auto my-8 space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm"
   >
