@@ -62,7 +62,7 @@ export default defineAppConfig({
             username: 'lukasg',
             name: 'Lukas Gomez',
             description:
-                'I\'m a Platform Engineer  Platform Engineer who\'s been riding the cloud-native wave since the early days of Backstage.io. For the past 4 years, I\'ve been diving deep into the CNCF ecosystem, helping teams build better developer platforms and internal developer portals.  I believe in building platforms that are not just functional, but delightful to use. ',
+                'I\'m a Platform Engineer who\'s been riding the cloud-native wave since the early days of Backstage.io. For the past 4 years, I\'ve been diving deep into the CNCF ecosystem, helping teams build better developer platforms and internal developer portals.  I believe in building platforms that are not just functional, but delightful to use. ',
             avatar: '/images/lukasg.jpeg',
             socials: {
                 linkedin: 'https://www.linkedin.com/in/lukas-g0mez/',
