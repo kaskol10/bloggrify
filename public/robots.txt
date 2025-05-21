@@ -1,0 +1,19 @@
+# https://k8scockpit.tech robots.txt
+User-agent: *
+Allow: /
+Allow: /posts/
+Allow: /tags/
+Allow: /categories/
+Allow: /search/
+Allow: /contact/
+Allow: /about/
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Sitemap
+Sitemap: https://k8scockpit.tech/sitemap.xml 

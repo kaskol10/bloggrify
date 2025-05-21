@@ -81,7 +81,23 @@ export default defineAppConfig({
     robots: [
         {
             UserAgent: '*',
-            Disallow: ['/'],
+            Disallow: ['/admin/'],
+        },
+        {
+            UserAgent: '*',
+            Disallow: ['/private/'],
+        },
+        {
+            UserAgent: '*',
+            Disallow: ['/api/'],
+        },
+        {
+            UserAgent: '*',
+            Disallow: ['/_next/'],
+        },
+        {
+            UserAgent: '*',
+            Disallow: ['/static/'],
         },
     ],
 
