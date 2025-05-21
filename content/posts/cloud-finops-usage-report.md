@@ -2,7 +2,7 @@
 id: "cloud-finops-usage-report"
 title: "Cloud FinOps – Part 5: Usage Report"
 description: "A practical guide to implementing cloud cost visualization using AWS Cost & Usage Reports, Athena, and Grafana"
-date: "2022-06-09"
+date: "2022-06-10"
 categories:
   - cloud
   - finops
