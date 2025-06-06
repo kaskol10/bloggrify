@@ -383,6 +383,6 @@ If you're running AI, ML, or data science workloads in a Kubernetes environment,
 
 I'm a Platform Engineer Architect specializing in cloud-native technologies and engineering leadership. I focus on building efficient, collaborative engineering processes and documentation. I'm a Golden Kubestronaut with a passion for Cloud Native technologies.
 
-If you have questions, want to share your experience, or need help with your setup, feel free to [connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](/contact) for more information.
+If you have questions, want to share your experience, feel free to [connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](/contact) for more information.
 
 
