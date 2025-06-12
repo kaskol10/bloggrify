@@ -107,6 +107,13 @@ export default defineAppConfig({
 
     portfolio: [
         {
+            name: 'Certified Cloud Native Platform Engineering Associate',
+            description: 'Certified Cloud Native Platform Engineering Associate certification from The Linux Foundation. 2025-06-11',
+            url: 'https://k8scockpit.tech/images/certs/cnpa.pdf',
+            image: '/images/certs/cnpa.png',
+            status: 'certification',
+        },
+        {
             name: 'Understanding the EU Cyber Resilience Act CRA LFEL1001',
             description: 'Understanding the EU Cyber Resilience Act CRA LFEL1001 certification. 2025-04-21',
             url: 'https://k8scockpit.tech/images/certs/cra.pdf',
