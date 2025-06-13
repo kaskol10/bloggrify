@@ -107,6 +107,13 @@ export default defineAppConfig({
 
     portfolio: [
         {
+            name: 'Exam Contributor: Certified Cloud Native Platform Engineering Associate',
+            description: 'Exam Contributor: Certified Cloud Native Platform Engineering Associate certification from The Linux Foundation. 2025-06-11',
+            url: 'https://k8scockpit.tech/images/certs/cnpa_contributor.png',
+            image: '/images/certs/cnpa_contributor.png',
+            status: 'certification',
+        },
+        {
             name: 'Certified Cloud Native Platform Engineering Associate',
             description: 'Certified Cloud Native Platform Engineering Associate certification from The Linux Foundation. 2025-06-11',
             url: 'https://k8scockpit.tech/images/certs/cnpa.pdf',
