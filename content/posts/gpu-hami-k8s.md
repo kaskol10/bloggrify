@@ -16,7 +16,7 @@ tags:
   - h100
   - production
   - testing
-cover: "covers/gpu-mig.jpg"
+cover: "covers/hamivsmig.jpg"
 ---
 
 ## The GPU Sharing Question That Started This
