@@ -21,7 +21,7 @@ cover: "covers/hamivsmig.jpg"
 
 ## The GPU Sharing Question That Started This
 
-After my [previous post about MIG setup](/posts/gpu-mig-k8s) gained traction on [Reddit](https://www.reddit.com/r/kubernetes/comments/1l9l8gz/multitenant_gpu_workloads_are_finally_possible/), the community asked a critical question: **How does MIG compare to HAMi for real workloads?**
+After my [previous post about MIG setup](/posts/gpu-operator-mig) gained traction on [Reddit](https://www.reddit.com/r/kubernetes/comments/1l9l8gz/multitenant_gpu_workloads_are_finally_possible/), the community asked a critical question: **How does MIG compare to HAMi for real workloads?**
 
 I spent 2 weeks testing both technologies on H100 hardware with actual ML workloads. Here's what surprised me.
 
