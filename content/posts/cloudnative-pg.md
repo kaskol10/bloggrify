@@ -11,7 +11,7 @@ tags:
   - cloudnative-pg
   - cloud-native
   - postgresql
-cover: "covers/cloudnative-pg.svg"
+cover: "covers/cloudnative-pg.png"
 ---
 
 ## Why Move Away from Bitnami's Charts?
