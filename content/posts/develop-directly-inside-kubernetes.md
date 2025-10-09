@@ -1,7 +1,7 @@
 ---
 id: "develop-software-direclty-inside-kubernetes"
-title: "Develop software directly inside Kubernetes"
-description: "Develop software in your Kubernetes cluster"
+title: "Stop Localhost: Develop Software Directly Inside Kubernetes"
+description: "Tired of local development headaches? Discover how to develop your applications directly in a production-like Kubernetes environment."
 date: "2025-10-16"
 categories:
   - engineering
@@ -11,231 +11,103 @@ categories:
 tags:
   - kubernetes
   - develop
-  - devex 
+  - devex
 cover: "covers/devspace.jpg"
 ---
 
-# Motivation 
+### The Local Development Dilemma
 
-A lot of companies has issues developing apps from their laptop, sometimes because networking issues, permissions, access to databases, need of powerful instances... Likely you're reading and realize this is an issue in your company too. So, this article would focus in how to develop directly in Kubernetes from your local laptop. To make it happen, the solution to deep dive would be DevSpace, at the time this article has been written a Sandbox CNCF Project developed by Loft and donated to the CNCF in 2022, their mantra "it's the faster developer tool for Kubernetes". We'll see 
+In the era of microservices and cloud-native architectures, the traditional "it works on my machine" development model is fundamentally broken. Engineers often spend hours, if not days, wrestling with a local setup that poorly mimics a production environment. From networking issues and database access to the sheer demand for powerful hardware, the friction of local development slows down innovation and frustrates talent.
 
-# Requirements 
+If you're an engineering leader or a platform engineer, this story is likely familiar. The dream of a seamless development workflow is often bogged down by the complexities of replicating a cloud environment on a laptop. But what if there was a better way? What if you could develop directly inside your Kubernetes cluster, with all the benefits of a production-like environment, without sacrificing the speed and convenience of local tooling?
 
-What I need to use Devspace? Simple: 
-- Kubernetes access in order to deploy your local projects to Kubernetes 
-- DevSpace CLI downloaded in your laptop (it's available for Windows, Linux and Mac)
-- Access to the image registry you've choosen. 
+This is where **DevSpace** comes in. As a CNCF Sandbox project, DevSpace is a powerful open-source tool designed to bridge the gap between local development and Kubernetes. Its mantra is simple: "The fastest developer tool for Kubernetes." In this article, we'll explore how DevSpace lives up to that promise and how it can revolutionize your team's development experience.
 
-# Features 
+### What Do You Need to Get Started?
 
-- Streamlined workflow. Automate image building and automate deployments 
-    - Builing images, pushing images
-    - Kubectl, helm, kustomize, cross-repository dependencies 
-- Faster feedback loop. Updates your container in real-time while you're coding 
-    - 2-way file sync, sync between your local computer and the containers. What I need to do it? 
-    - Hot reloading, rebuilds your app inside the running container. This is achieved through file synchronization and auto-reloading mechanisms 
-    - Advanced build caching, prevents unnecesary builds and accelerate image building
-- Rich UI 
-    - Easy interaction with your workloads 
-- Developer experience. Works with your favourite IDE and other developer tools 
-- Cross-environment consistency 
-    - Declarative configuration => GitOps! 
-    - Profiles and config patches 
-    - Config variables 
-    - Custom commands 
+Adopting DevSpace is surprisingly straightforward. Here are the essentials:
 
-# Highlights 
+- **Kubernetes Cluster Access**: You need access to a Kubernetes cluster where you can deploy your applications.
+- **DevSpace CLI**: The command-line interface, available for Windows, Linux, and macOS, is the primary way you'll interact with DevSpace.
+- **Image Registry Access**: You'll need access to a container image registry to store your application images.
 
-## Try a Helm Chart in the manifests
+### Core Features of DevSpace
 
-The sample here is how to use the Helm chart properly, although you can start from scratch using vanilla Kubernetes manifests, you can start using a Helm Chart defined for your company. 
+DevSpace is more than just a deployment tool; it's a comprehensive development environment that streamlines the entire inner loop of the development process. Let's look at its key features.
 
+#### 1. Streamlined and Automated Workflows
 
-```sh
+DevSpace automates the repetitive tasks of building and deploying applications. With a declarative `devspace.yaml` file, you can define your entire development workflow, from building container images to deploying them with `kubectl`, Helm, or Kustomize. This GitOps-friendly approach ensures that your development environment is version-controlled and easily reproducible.
+
+You can even define cross-repository dependencies, making it easier to work with complex microservices architectures.
+
+#### 2. A Faster Feedback Loop with Hot Reloading
+
+One of the most powerful features of DevSpace is its ability to provide a near-instant feedback loop. As you write code on your local machine, DevSpace updates your application running in the container in real-time. This is achieved through two key mechanisms:
+
+- **Two-Way File Synchronization**: DevSpace syncs file changes between your local machine and the running container. This means you can use your favorite IDE and tools, and your changes are immediately reflected in the cloud.
+- **Hot Reloading**: For applications that support it (like Node.js with `nodemon` or Python with `--reload`), changes are automatically picked up without a container restart. For changes that require a full rebuild, such as updating dependencies, DevSpace offers an auto-reloading mechanism that rebuilds and redeploys your application.
+
+This combination of file synchronization and hot reloading dramatically reduces the time you spend waiting for builds and deployments, allowing you to stay in the flow.
+
+#### 3. Rich User Interface
+
+For those who prefer a more visual approach, DevSpace offers a rich user interface that makes it easy to interact with your workloads, inspect logs, and manage your development environment.
+
+#### 4. Cross-Environment Consistency
+
+DevSpace helps you achieve consistency between your development and production environments. By using a declarative configuration, you can define different profiles for different environments, ensuring that your application behaves as expected, no matter where it's deployed.
+
+### Practical Examples with DevSpace
+
+Let's dive into some practical examples of how you can use DevSpace to improve your development workflow.
+
+#### Using a Helm Chart for Deployment
+
+If your organization uses Helm to manage deployments, you can easily integrate it with DevSpace. Here's an example of how to use a Helm chart from a remote repository:
+
+```yaml
 deployments:
-  hello-devspace:
-    helm: 
-      chart: 
+  - name: my-app
+    helm:
+      chart:
         name: component-chart
         repo: https://charts.devspace.sh
       values:
-        labels:
-          app: devspace-example-python-simple
-        containers:
-        - name: python-web-server
-          image: "python-hello-devspace"
-          ports:
-            - containerPort: 80
-        nodeSelector:
-          dedicated: amd
-        tolerations:
-        - effect: NoSchedule
-          key: dedicated
-          operator: Equal
-          value: amd
-```
-Or if you prefer to load an inline file you can do it easily too, take into account this is loaded as a static configuration so in case is something dynamic you need to refer as `values` and you can combine `values` and `valuesFiles`
-```sh
-deployments:
-  hello-devspace:
-    helm: 
-      chart: 
-        name: component-chart
-        repo: https://charts.devspace.sh
-      valuesFiles:
-        - manifests/values.yaml
+        app:
+          name: my-app
+          image: "my-app-image"
 ```
 
+You can also use local Helm charts or override values with a `values.yaml` file, giving you full control over your deployments.
 
-## Hot Reloading Implementation
+#### Implementing Hot Reloading
 
-DevSpace provides two main mechanisms for hot reloading in Kubernetes development:
-
-### 1. File Synchronization (Real-time Sync)
-
-File synchronization is the primary method for hot reloading. It syncs local file changes directly into running containers without rebuilding images or restarting containers.
-
-**Configuration in `devspace.yaml`:**
+Here’s how you can configure file synchronization and auto-reloading in your `devspace.yaml`:
 
 ```yaml
 dev:
   sync:
-    - imageSelector: your-app-image
-      localSubPath: ./
-      containerPath: /app
+    - imageSelector: my-app-image
+      localSubPath: ./src
+      containerPath: /app/src
       excludePaths:
         - node_modules/
-        - logs/
-        - .git/
-        - dist/
-```
-
-**Key parameters:**
-- `imageSelector`: Matches containers by image name
-- `localSubPath`: Local directory to sync (usually project root)
-- `containerPath`: Destination path inside the container
-- `excludePaths`: Files/directories to exclude from sync
-
-**How it works:**
-1. Run `devspace dev` to start development mode
-2. DevSpace establishes real-time file sync between local machine and container
-3. Any local file changes are immediately reflected in the running container
-4. If your application supports hot reloading (e.g., `nodemon` for Node.js, `--reload` for Python), changes are automatically picked up
-
-### 2. Auto-Reloading (Full Rebuild)
-
-For changes that require complete rebuilds (like dependency changes), DevSpace offers auto-reloading:
-
-```yaml
-dev:
   autoReload:
     paths:
       - ./package.json
-      - ./requirements.txt
-      - ./Dockerfile
-      - ./config/*
-    images:
-      - your-app-image
     deployments:
-      - your-deployment-name
+      - my-app
 ```
 
-**When to use auto-reload:**
-- Dependency changes (`package.json`, `requirements.txt`)
-- Configuration file modifications
-- Dockerfile changes
-- Environment variable updates
+In this example, any changes to the `src` directory will be immediately synced to the container. If `package.json` is modified, DevSpace will automatically trigger a redeployment.
 
-### 3. Language-Specific Examples
+#### Remote Debugging with Your Favorite IDE
 
-**Node.js/React:**
-```yaml
-dev:
-  sync:
-    - imageSelector: node-app
-      localSubPath: ./
-      containerPath: /app
-      excludePaths:
-        - node_modules/
-        - build/
-        - dist/
-  autoReload:
-    paths:
-      - ./package.json
-      - ./package-lock.json
-```
+DevSpace makes it easy to debug your application running in Kubernetes. By forwarding a port from your container to your local machine, you can attach a debugger from your IDE, just as you would with a local application.
 
-**Python:**
-```yaml
-dev:
-  sync:
-    - imageSelector: python-app
-      localSubPath: ./
-      containerPath: /app
-      excludePaths:
-        - __pycache__/
-        - .venv/
-        - venv/
-  autoReload:
-    paths:
-      - ./requirements.txt
-      - ./pyproject.toml
-```
+Here's an example of a `launch.json` configuration for remote debugging in Visual Studio Code:
 
-**Go:**
-```yaml
-dev:
-  sync:
-    - imageSelector: go-app
-      localSubPath: ./
-      containerPath: /app
-      excludePaths:
-        - vendor/
-        - bin/
-  autoReload:
-    paths:
-      - ./go.mod
-      - ./go.sum
-```
-
-### 4. Advanced Configuration
-
-**Bidirectional sync:**
-```yaml
-dev:
-  sync:
-    - imageSelector: your-app
-      localSubPath: ./
-      containerPath: /app
-      uploadExcludePaths:
-        - node_modules/
-      downloadExcludePaths:
-        - logs/
-```
-
-**Multiple sync paths:**
-```yaml
-dev:
-  sync:
-    - imageSelector: frontend
-      localSubPath: ./frontend
-      containerPath: /app/frontend
-    - imageSelector: backend
-      localSubPath: ./backend
-      containerPath: /app/backend
-```
-
-## Debugging Python
-
-
-To connect a debugger in your IDE (such as Visual Studio Code) to the setup you've configured in `devspace.yaml`, you'll need to set up a debugging configuration. Here's how you can do it:
-Steps to Connect the Debugger
-- Install Debugger Extension: Ensure you have the Python extension installed in your IDE, which typically includes debugging capabilities.
-- Create a Debug Configuration:
-Open the command palette in your IDE (usually Cmd+Shift+P on macOS or Ctrl+Shift+P on Windows/Linux).
-    - Type "Debug: Open launch.json" and select it. This will open or create a launch.json file in the .vscode directory.
-- Add a Debug Configuration:
-Add a new configuration for Python remote debugging. Here is an example configuration you can add to your launch.json:
 ```json
 {
     "version": "0.2.0",
@@ -250,38 +122,38 @@ Add a new configuration for Python remote debugging. Here is an example configur
             },
             "pathMappings": [
                 {
-                    "localRoot": "${workspaceFolder}/02-fastapi-tortoise/backend/devspace_starwars_api",
-                    "remoteRoot": "/simple-project/devspace_starwars_api"
+                    "localRoot": "${workspaceFolder}/src",
+                    "remoteRoot": "/app/src"
                 }
-            ],
-            "justMyCode": true
+            ]
         }
     ]
 }
 ```
 
-    - host: This should be localhost since you're connecting to the local port exposed by devspace.
-    - port: This should match the port you exposed for debugging (5678).
-    - pathMappings: This maps the local source code directory to the remote directory in the container. Adjust the paths if your directory structure is different.
-- Start Debugging:
-Start your application using devspace dev.
-In your IDE, go to the Run and Debug view and select "Python: Remote Attach" from the dropdown, then click the green play button to start debugging.
-This setup will allow you to set breakpoints and step through your code as it runs in the container
+This setup allows you to set breakpoints and step through your code as it runs inside the container, giving you a powerful tool for troubleshooting.
 
-## Build the image without Docker running in your instance 
+#### Building Images Without Local Docker
 
+For organizations that want to standardize their build process or avoid the overhead of running Docker on developer machines, DevSpace can be integrated with tools like Kaniko to build container images directly within the Kubernetes cluster.
 
-The limitation of build the project in the local instance is usually a concern for networking and limited resources in the pc. 
+This approach offers several advantages:
 
-DevSpace, combined with Kaniko, provides a powerful solution for building and deploying applications in Kubernetes without relying on Docker installed on local machines.
+- **No Local Docker Required**: Free up local resources and avoid inconsistencies between local and CI/CD build environments.
+- **Improved Security**: Builds are executed in a controlled and isolated cloud environment.
+- **Consistent Builds**: Ensure that your images are built in the same environment where they will run.
 
-- **No Local Docker Required**: By using Kaniko, you can build images directly in the cloud, eliminating the need for Docker to be installed locally.
-- **Streamlined Development**: DevSpace automates the deployment process, allowing developers to focus on coding rather than managing local Docker environments.
-- **Consistent Environments**: Ensures that builds are consistent across different environments by using the same Kubernetes cluster for development and production.
+### The Business Case for In-Cluster Development
 
-### How It Works
-1. **DevSpace Setup**: Configure DevSpace to manage your Kubernetes deployments and automate the development workflow.
-2. **Kaniko Integration**: Use Kaniko to build container images within the Kubernetes cluster, leveraging cloud resources.
-3. **Deploy and Test**: With DevSpace, deploy your application and test it in a cloud environment, ensuring that it behaves the same as it would in production.
+For engineering leaders, the benefits of adopting a tool like DevSpace extend beyond developer convenience. The impact on the business can be significant:
 
-This approach not only simplifies the development process but also enhances security and scalability by leveraging cloud-native tools and practices.
+- **Increased Developer Productivity**: By reducing the friction of local development, engineers can spend more time writing code and less time wrestling with their environment.
+- **Faster Onboarding**: New developers can get up and running in minutes, not days. With a single command (`devspace dev`), they can have a fully functional development environment without needing to install a complex toolchain on their local machine.
+- **Improved Environment Consistency**: By developing in a production-like environment, you can reduce the number of "it works on my machine" bugs and ensure a smoother path to production.
+- **Enhanced Security**: Centralizing development in a controlled cloud environment can improve your security posture by reducing the attack surface of local machines.
+
+### Conclusion
+
+The shift to cloud-native development requires a new approach to the developer experience. Tools like DevSpace are leading the way, offering a more efficient, consistent, and enjoyable way to build software for Kubernetes. By moving development into the cluster, you can empower your team to innovate faster, reduce operational overhead, and ultimately, deliver more value to your customers.
+
+If you're ready to leave the frustrations of local development behind, it's time to give DevSpace a try.
