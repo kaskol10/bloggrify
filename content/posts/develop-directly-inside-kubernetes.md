@@ -21,7 +21,7 @@ In the era of microservices and cloud-native architectures, the traditional "it 
 
 If you're an engineering leader or a platform engineer, this story is likely familiar. The dream of a seamless development workflow is often bogged down by the complexities of replicating a cloud environment on a laptop. But what if there was a better way? What if you could develop directly inside your Kubernetes cluster, with all the benefits of a production-like environment, without sacrificing the speed and convenience of local tooling?
 
-This is where **DevSpace** comes in. As a CNCF Sandbox project, DevSpace is a powerful open-source tool designed to bridge the gap between local development and Kubernetes. Its mantra is simple: "The fastest developer tool for Kubernetes." In this article, we'll explore how DevSpace lives up to that promise and how it can revolutionize your team's development experience.
+This is where **[DevSpace](https://www.devspace.sh/docs/getting-started/introduction)** comes in. As a CNCF Sandbox project, [DevSpace](https://www.devspace.sh/docs/getting-started/introduction) is a powerful open-source tool designed to bridge the gap between local development and Kubernetes. Its mantra is simple: "The fastest developer tool for Kubernetes." In this article, we'll explore how [DevSpace](https://www.devspace.sh/docs/getting-started/introduction) lives up to that promise and how it can revolutionize your team's development experience.
 
 ### What Do You Need to Get Started?
 
@@ -157,6 +157,10 @@ For engineering leaders, the benefits of adopting a tool like DevSpace extend be
 The shift to cloud-native development requires a new approach to the developer experience. Tools like DevSpace are leading the way, offering a more efficient, consistent, and enjoyable way to build software for Kubernetes. By moving development into the cluster, you can empower your team to innovate faster, reduce operational overhead, and ultimately, deliver more value to your customers.
 
 If you're ready to leave the frustrations of local development behind, it's time to give DevSpace a try.
+
+## Resources
+
+- https://www.devspace.sh/docs/getting-started/introduction
 
 ## About the Author
 
