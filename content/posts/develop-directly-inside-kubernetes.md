@@ -157,3 +157,9 @@ For engineering leaders, the benefits of adopting a tool like DevSpace extend be
 The shift to cloud-native development requires a new approach to the developer experience. Tools like DevSpace are leading the way, offering a more efficient, consistent, and enjoyable way to build software for Kubernetes. By moving development into the cluster, you can empower your team to innovate faster, reduce operational overhead, and ultimately, deliver more value to your customers.
 
 If you're ready to leave the frustrations of local development behind, it's time to give DevSpace a try.
+
+## About the Author
+
+I'm a Platform Engineer Architect specializing in cloud-native technologies and engineering leadership. I focus on building efficient, collaborative engineering processes and documentation.
+
+[Connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](/contact) for more information.
