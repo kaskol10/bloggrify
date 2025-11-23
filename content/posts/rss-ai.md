@@ -1,53 +1,64 @@
 ---
-id: "progressive-delivery-kubernetes"
-title: "Progressive Delivery in Kubernetes: A Comprehensive Analysis"
-description: "Building a Privacy-First RSS Reader with AI Summaries"
-date: "2025-11-23∂"
+id: "rss-ai-reader-app"
+title: "Building a Privacy-First RSS Reader with AI Summaries"
+description: "How I built a self-hosted RSS reader with local AI summarization using Small Language Models—no cloud APIs, no tracking, just privacy-first information filtering."
+date: "2025-11-23"
 categories:
   - open-source
   - self-hosted
 tags:
   - self-hosted
   - privacy
-  - vibe-coding
-cover: ""
+  - ai
+  - rss
+cover: "covers/short-summary.png"
 
 ---
 
 # Building a Privacy-First RSS Reader with AI Summaries
 
-*Published: [Date]* | *Reading time: ~12 minutes*
+*Reading time: ~9 minutes*
 
-In today's AI-driven world, information overload is a real problem. As someone who follows Hacker News, Kubernetes blogs, GitHub updates, and various indie developer RSS feeds, I found myself drowning in content. The challenge wasn't finding information—it was filtering what truly mattered.
+I was drowning in RSS feeds. Whenever I had my PC open, I'd check my reader and find 50+ new articles from Hacker News, Kubernetes blogs, GitHub updates, and indie developer newsletters. The problem wasn't finding content—it was deciding what was worth my time.
 
-This is the story of how I built **RSS AI Reader**, a privacy-first, self-hosted RSS reader with AI-powered summaries that runs entirely on my infrastructure, using Small Language Models (SLMs) for sustainable AI processing.
+I needed something that could give me a quick summary: "Is this article about Kubernetes networking actually useful, or just another 'getting started' post?" But I couldn't find a solution that fit my needs.
 
-## The Problem: Information Overload in the AI Era
+Here's what I discovered: AI is accessible to everyone now. You can run models on your laptop using Ollama easily. But I had doubts about performance—my Mac Mini M1 is fast, but is it fast enough for real-time summarization?
 
-Every day, I'm bombarded with RSS feeds from multiple sources:
-- Hacker News for tech discussions
-- Kubernetes and cloud-native blogs
-- GitHub blog updates
-- Indie developer newsletters
+After reading [research on Small Language Models](https://arxiv.org/abs/2506.02153), I was convinced: for simple summarization tasks, I didn't need a huge model. This aligned perfectly with my ideal of sustainable AI. A 1-3B parameter model running locally would be more than sufficient—and completely private, so I'm iterating with model gemma3:1b
 
-The traditional approach—reading everything—isn't sustainable. I needed a way to:
-1. **Filter** content intelligently
-2. **Summarize** articles quickly (20-word summaries to decide if I want to read more)
-3. **Maintain privacy** (no data collection, no tracking)
-4. **Self-host** everything (no cloud dependencies, no API keys for simple summaries)
-5. **Use sustainable AI** (Small Language Models that run on consumer hardware)
+Obviously, a huge model could generate better summaries than a small language model, but this is a cost-benefit trade-off. Based on my daily usage over the last month, the smaller models are more than enough for fast summaries.
 
-After reading [research on Small Language Models](https://arxiv.org/abs/2506.02153), I was convinced: for simple summarization tasks, you don't need GPT-4. A 1-3B parameter model running locally is more than sufficient—and it's completely private.
+Privacy matters to me. I've worked in companies that don't sell user data, that worry about anonymizing PII, and that navigate EU privacy laws. I wanted to maintain complete transparency about data treatment—no tracking, no data collection, everything stays local.
 
-## Why Not Use Existing Solutions?
+I looked for existing solutions, but nothing fit my needs. I had a Cursor license, so I thought: why not try building the app myself?
 
-I evaluated several existing RSS readers:
+So I built **RSS AI Reader**—a privacy-first, self-hosted RSS reader that uses Small Language Models running locally to generate summaries. No cloud APIs, no tracking, no data leaving my infrastructure.
 
-- **RSS.app**: Not private—requires account, tracks usage, data collection
-- **Miniflux**: Great RSS reader, but lacks AI summarization capabilities
-- **Other solutions**: Either too complex, require cloud APIs, or compromise on privacy
+## Building with AI Assistance: The Journey
 
-So I decided to build my own. With a strong background in backend/platform engineering but limited frontend experience, this was the perfect opportunity to leverage modern AI coding assistants—specifically [Cursor](https://cursor.sh)—to build something from scratch.
+I'm a Senior Platform Engineer, so building a frontend app from scratch would be time-consuming. But I knew exactly what I wanted: local models with Ollama, privacy-first design, something clean and simple—think Hacker News but with AI summaries.
+
+The first iterations were surprisingly successful. In a couple of hours, I had a rough prototype working—though I started with OpenAI instead of Ollama to validate the concept quickly.
+
+I used [Dash Platform](https://dash.resiz.es) to deploy and test the app. This was perfect for rapid prototyping—I could push changes, share the URL, and test from my phone within minutes. Dash handles the deployment complexity (Docker builds, SSL, CDN) so you can focus on building. As one of the co-founders, this was perfect timing to eat my own dog food.
+
+Once friends and family validated the project, I needed to dive deeper into the code. Here's where the real work began—and where Cursor showed both its strengths and limitations:
+
+**What worked:**
+- Visual iterations were fast. I could describe what I wanted and get working code quickly.
+- The initial prototype came together in hours, not days.
+
+**The Challenges:**
+- **Monolithic components**: Cursor generated huge, all-in-one components. I spent days refactoring into smaller, reusable components. There's still room for improvement.
+- **Hardcoded models**: The initial OpenAI integration was hardcoded throughout the codebase. Converting it to Ollama-compatible code took Cursor a couple of days of iteration—it struggled with the architectural changes.
+- **Hacker News quirk**: Every time I iterated, Cursor would change the summary logic to summarize comments instead of articles. This was frustrating—other RSS feeds worked fine, but Hacker News kept breaking. I'd test other feeds, everything worked, then test Hacker News again and realize the summaries were from comments, not the article.
+- **CORS and Proxy**: I thought I was the only one struggling here, but Cursor struggled too. It took several days of iteration to properly handle CORS and set up the proxy to eliminate external dependencies.
+- **Privacy features**: The first iterations around privacy weren't successful. I had to prompt more explicitly than usual to get privacy settings implemented correctly.
+- **Code quality**: Frontend iterations are visually fast, but the generated code isn't always production-ready. You still need to review, refactor, and improve.
+
+**The Reality:** AI-assisted development accelerated my learning and let me build something I wouldn't have attempted otherwise. But it's not magic—you still need to understand the code, refactor it, and fix the quirks. The real win? A backend engineer building a React app that actually works. 
+
 
 ## Architecture: Privacy-First, Self-Hosted
 
@@ -96,215 +107,139 @@ The RSS AI Reader is built with a clear architecture philosophy:
 └─────────────────────────────────────────────────────────┘
 ```
 
-### Key Architectural Decisions
+## Key Features
 
-#### 1. **Privacy-First Design**
-- **Browser-side storage**: All feeds, prompts, and settings stored in `localStorage`
-- **No backend database**: No user accounts, no data collection
-- **Anonymous AI requests**: AI summaries don't include any user identification
-- **Privacy utilities**: Automatic removal of tracking pixels, URL parameter stripping, referrer policy enforcement
+### AI-Powered Summaries
 
-#### 2. **Self-Hosted AI Processing**
-The application uses **Ollama** for local AI processing:
-- **100% private**: All AI processing happens on your infrastructure
-- **No API keys required**: No external services, no data leaves your control
-- **Small Language Models**: Efficient models that run on consumer hardware
-- **Flexible**: Easy to switch models or add cloud providers later
+The core feature: AI-generated summaries that help you decide what's worth reading.
 
-#### 3. **Content Security Policy (CSP) Compliance**
-All requests go through same-origin proxy endpoints to avoid CSP violations:
-- `/api/proxy` for RSS feeds
-- `/api/ollama-proxy` for Ollama requests (when needed)
+- **Short summaries (20 words)**: Quick filtering—get the gist in seconds, not minutes. Perfect for scanning through dozens of articles.
+- **Extended summaries**: More detailed analysis when you need it. Great for understanding complex technical articles before diving in.
+- **Custom prompts**: Three default prompts (technical, business, casual), but you can create your own. Want summaries focused on security implications? Create a custom prompt. Need summaries for Kubernetes content? There's a prompt for that.
 
-## Technology Stack
+**How it works:** All summaries are generated locally using Ollama. Your articles never leave your infrastructure. Summaries generate in 1-3 seconds on consumer hardware (tested on Mac Mini M1, no GPU required).
 
-### Frontend
-- **React 18** + **TypeScript** for type safety
-- **Vite** for fast builds and HMR
-- **Tailwind CSS** for styling (Hacker News-inspired design)
-- **Vite environment variables** for build-time configuration
+### Privacy-First Architecture
 
-### Backend
-- **Express.js** proxy server for RSS feeds and AI requests
-- **Rate limiting** with TTL-based cleanup
-- **SSRF protection** for security
-- **Graceful shutdown** handling
+This isn't just "no tracking"—it's complete data sovereignty.
 
-### AI Integration
-- **Ollama** for local AI models (gemma3:1b, phi3:mini, granite4)
-- **Direct API integration** - no external dependencies
-- **Flexible architecture** - easy to add other providers later
+- **No data collection**: Nothing is stored on servers. All feeds, settings, and preferences live in your browser's `localStorage`.
+- **No data sharing**: Your reading habits aren't sold, analyzed, or shared. Ever.
+- **No tracking**: No analytics, no tracking pixels, no referrer leakage. The app actively removes tracking elements from RSS content.
+- **Self-hosted AI**: All AI processing happens locally via Ollama. Your articles never leave your network.
 
-### Infrastructure
-- **Docker Compose** for local development
-- **Self-hosted** - runs on your infrastructure
-- **Nginx** for frontend serving and API proxying
+**The philosophy:** Complete transparency, complete control.
 
-## Development Experience: "Vibe Coding" with Cursor
+### RSS Feed Management
 
-As someone with limited frontend experience, building this project was a perfect test case for AI-assisted development. Using [Cursor](https://cursor.sh), I was able to:
+Simple, powerful feed management with sensible defaults.
 
-1. **Iterate quickly**: Describe what I wanted, get code suggestions, refine
-2. **Learn as I build**: Understand React patterns, TypeScript types, Vite configuration
-3. **Focus on architecture**: Spend time on system design rather than syntax
-4. **Maintain quality**: TypeScript catches errors, AI suggests best practices
+- **Add custom RSS feeds**: Add any RSS feed URL. The app handles parsing, caching, and updates automatically.
+- **Default feeds included**: Hacker News, Kubernetes Blog, and GitHub Blog are pre-configured so you can start using it immediately.
+- **Favorites system**: Mark articles as favorites for quick access later.
+- **Export capabilities**: Export your feeds and settings if needed.
 
-The result? A production-ready application built in significantly less time than traditional development, with proper error handling, TypeScript types, and clean architecture.
+### Simple and Fast Frontend
 
-## Privacy Features: Beyond the Basics
+The UI is designed for speed and simplicity—no bloat, no distractions, just content.
 
-Privacy isn't just "no tracking"—it's comprehensive protection:
+- **Hacker News-inspired design**: Clean, minimalist interface that focuses on readability. No unnecessary animations or heavy frameworks slowing things down.
+- **Fast loading**: Optimized builds with Vite, minimal JavaScript, and efficient rendering. The app loads quickly even on slower connections.
+- **Mobile-responsive**: Works seamlessly on desktop, tablet, and mobile devices. Read your feeds anywhere, anytime.
+- **Lightweight**: No heavy dependencies or bloated libraries. Just React, TypeScript, and Tailwind CSS—fast and efficient.
 
-### ✅ Implemented Privacy Features
+**The result:** A frontend that gets out of your way and lets you focus on reading, not waiting for pages to load.
 
-1. **Pixel Tracker Removal**: Automatically detects and removes 1x1 tracking pixels from RSS content
-2. **URL Parameter Stripping**: Removes `utm_*`, `fbclid`, `gclid`, and 20+ tracking parameters
-3. **Referrer Policy**: `no-referrer` headers prevent referrer leakage
-4. **YouTube No-Cookie**: Automatically converts YouTube links to `youtube-nocookie.com`
-5. **External Link Protection**: All external links use `rel="noopener noreferrer"`
-6. **JavaScript Blocking**: Removes external scripts and dangerous HTML elements
-7. **Content Security Policy**: Strict CSP headers prevent XSS attacks
+### Dark/Light Theme Support
 
-### Privacy by Design
+Customize your reading experience with theme preferences.
 
-- **No user accounts**: Everything stored in browser
-- **No analytics**: No Google Analytics, no tracking pixels
-- **No data collection**: Not even error tracking (unless you self-host)
-- **Self-hosted AI**: Local Ollama models mean your content never leaves your infrastructure
+- **Dark mode**: Easy on the eyes for late-night reading sessions. Perfect for reducing eye strain in low-light environments.
+- **Light mode**: Clean, bright interface for daytime reading.
+- **Theme persistence**: Your theme preference is saved in `localStorage`, so it persists across sessions.
+- **Instant switching**: Toggle between themes instantly—no page reload required.
 
-## Deployment: Simple and Self-Hosted
+**Why it matters:** Reading comfort matters. Whether you prefer dark mode for late-night browsing or light mode for daytime reading, the choice is yours.
 
-### Local Development (Docker Compose)
+### Self-Hosted Deployment
 
-The simplest way to get started:
+Run it entirely on your infrastructure—no cloud dependencies, no external services.
 
-```yaml
-services:
-  frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
-      args:
-        - VITE_AI_PROVIDER=ollama
-        - VITE_OLLAMA_PROXY_URL=/api/ollama-proxy
-        - VITE_OLLAMA_MODEL=gemma3:1b
-    ports:
-      - "3000:80"
-    depends_on:
-      - proxy
+- **Docker Compose setup**: Simple deployment with `docker-compose up -d`
+- **Local AI processing**: Ollama runs on your machine, processing summaries locally
+- **No API keys required**: No OpenAI, no Anthropic, no external services
+- **Complete control**: Your infrastructure, your data, your rules
 
-  proxy:
-    build:
-      context: .
-      dockerfile: Dockerfile.proxy
-    environment:
-      - OLLAMA_API_URL=http://host.docker.internal:11434
-    ports:
-      - "3001:3001"
-```
+**Perfect for:** Privacy-conscious users, homelab enthusiasts, or anyone who wants to avoid cloud dependencies.
 
 ### Quick Start
 
 1. **Install Ollama** on your host machine: https://ollama.ai
 2. **Pull a model**: `ollama pull gemma3:1b`
-3. **Start with Docker Compose**: `docker-compose up -d`
-4. **Access**: http://localhost:3000
+3. **Clone the repo**: `git clone https://github.com/kaskol10/rss-ai-reader.git`
+4. **Start with Docker Compose**: `docker-compose up -d`
+5. **Access**: http://localhost:3000
 
 That's it! The application runs entirely on your infrastructure, with Ollama processing AI requests locally.
 
+## Try It Live
 
-## AI Model Strategy: Small Models for Big Impact
+**👉 [Try RSS AI Reader Now](https://rss-ai.resiz.es)** — I've deployed a live demo using [Dash Platform](https://dash.resiz.es) running the gemma3:1b model. No installation required, just click and start reading.
 
-The research on Small Language Models ([arxiv.org/abs/2506.02153](https://arxiv.org/abs/2506.02153)) shows that for simple tasks like summarization, you don't need massive models. My testing confirmed this:
+## Screenshots
 
-### Recommended Models for Local Processing
+Here's what the app looks like in action:
 
-- **gemma3:1b** (1GB): Fast, good quality for summaries - my go-to choice
-- **phi3:mini** (2.3GB): Excellent instruction following, great for "20 words or less" prompts
-- **granite4:latest** (SHA: `sha256-5c7ac4aead1bcf4c8da9534ed72cc632d005aeed6547f1e8662ccdfae688364e`): IBM's efficient model, good alternative
+![Short Summary](/images/posts/rss/short-summary.png)
+![White Short Summary](/images/posts/rss/white-short-summary.png)
+![Article](/images/posts/rss/article.png)
+![Extended Technical Summary](/images/posts/rss/extended-technical-summary.png)
+![Extended Business Summary](/images/posts/rss/extended-business-summary.png)
+![Extended Casual Summary](/images/posts/rss/extended-casual-summary.png)
 
-All of these run smoothly on consumer hardware—no GPU required, just a few GB of RAM. Perfect for running on your laptop or homelab.
 
-The key insight: **For generating 20-word summaries, you don't need GPT-4**. A 1-3B parameter model is more than sufficient, completely private, and runs locally.
+## Next Steps
 
-## Key Features
-
-### 1. **AI-Powered Summaries**
-- Short summaries (20 words) for quick filtering
-- Extended summaries for detailed analysis
-- Custom prompts for different use cases (technical, business, casual)
-
-### 2. **Hacker News-Inspired UI**
-- Clean, minimalist design
-- Fast loading, no bloat
-- Mobile-responsive
-
-### 3. **Feed Management**
-- Add custom RSS feeds
-- Favorites system
-- Search functionality
-- Export capabilities
-
-### 4. **Privacy Controls**
-- Comprehensive tracking removal
-- Privacy settings panel
-- Transparent about what's blocked
-
-## Lessons Learned
-
-### 1. **Small Models Are Enough**
-For summarization tasks, 1-3B parameter models are perfectly adequate. No need for GPT-4 when generating 20-word summaries.
-
-### 2. **Privacy Requires Active Effort**
-Privacy isn't just "don't track"—it's actively removing trackers, stripping parameters, and preventing data leakage at every layer.
-
-### 3. **AI-Assisted Development Works**
-Using Cursor for "vibe coding" was incredibly productive. It's not about replacing developers—it's about amplifying productivity, especially for learning new domains.
-
-### 4. **Self-Hosting Is Viable**
-Running Ollama locally, managing your own infrastructure—it's all achievable and gives you complete control. No cloud dependencies, no API keys, just your data and your models.
-
-### 5. **Privacy Requires Active Effort**
-Privacy isn't just "don't track"—it's actively removing trackers, stripping parameters, and preventing data leakage at every layer. Every feature was designed with privacy in mind.
-
-## Future Enhancements
-
-- **Multi-Provider Support**: Add support for cloud AI providers (for future hosting offering)
-- **Feed Recommendations**: AI-powered feed suggestions
-- **Advanced Filtering**: Content-based filtering using embeddings
-- **Mobile App**: PWA or native app
-- **Hosting Solution**: Managed hosting option for those who want it (stay tuned!)
+I'll continue improving this project based on community feedback and my daily usage. Some next steps:
+- Automatic filtering of posts based on your interests, maybe using your favorite posts as training data
+- Reading history—I think this would be useful because sometimes you read an article and completely forget about it until 3 weeks later when you want to share it and can't find it
+- Project video explanation/presentation
 
 ## Conclusion
 
-RSS AI Reader demonstrates that you can build privacy-first, self-hosted applications that leverage AI without compromising on control or sustainability. By using Small Language Models and a self-hosted architecture, we get:
+I built this project to solve a real problem: information overload in my daily reading routine. But it became more than that—it's a proof that privacy-first, self-hosted AI applications are not just possible, but practical.
 
-- ✅ **Privacy**: Complete data control, no tracking, no data collection
-- ✅ **Sustainability**: Small models, local processing, no cloud dependencies
-- ✅ **Simplicity**: Runs on your laptop or homelab, no complex infrastructure
-- ✅ **Open Source**: Apache 2.0 license, full transparency
-- ✅ **Flexibility**: Easy to extend and customize
+**What I learned:**
 
-The project is available on GitHub and ready for self-hosting. Whether you're running it on your laptop with Ollama or deploying to your homelab, it's designed to be simple and private.
+- **AI-assisted development works**: Cursor IDE made it easy to build a POC from an initial idea in hours. But iteration is where it gets challenging—you still need to understand the code, refactor it, and fix quirks. For non-technical folks, getting from POC to production-ready would be difficult without deep understanding.
 
-**Key Takeaways:**
-- Small Language Models are sufficient for many AI tasks (like summarization)
-- Privacy requires active protection, not just passive avoidance
-- AI-assisted development can accelerate learning and productivity
-- Self-hosting AI is not just possible—it's practical and sustainable
-- You don't need cloud APIs for simple AI tasks—local models work great
+- **Infrastructure shouldn't be a blocker**: As a Platform Engineer, I used [Dash Platform](https://dash.resiz.es) from day one. I didn't worry about Docker builds, SSL, or CDN configuration—I just focused on building. The result? I deployed faster and spent more time on features than infrastructure.
+
+- **Small models are enough**: The gemma3:1b model generates summaries in 1-3 seconds on consumer hardware. For 20-word summaries, you don't need GPT-4. Sustainable AI is not just possible—it's practical.
+
+- **Privacy-first architecture works**: Browser-side storage, local AI processing, no tracking—it all works seamlessly. You can have privacy without sacrificing functionality.
+
+The project is open source and available on [GitHub](https://github.com/kaskol10/rss-ai-reader). Feel free to collaborate, raise issues, or ask questions. I'd be more than happy to hear from you.
+
+If you want privacy-first information filtering without cloud dependencies, this might be what you're looking for.
 
 ---
 
 ## Resources
 
-- **Project Repository**: [GitHub Link - to be added]
+- **Project Repository**: [GitHub](https://github.com/kaskol10/rss-ai-reader)
 - **Ollama**: https://ollama.ai - Local AI models
 - **Small Language Models Research**: https://arxiv.org/abs/2506.02153
 - **Cursor AI IDE**: https://cursor.sh - AI-assisted development
-- **Dash Platform** (for mobile testing): https://dash.resiz.es
+- **Dash Platform**: https://dash.resiz.es - Rapid prototyping and deployment (highly recommended for early iterations)
 
 ---
 
-*What are your thoughts on self-hosted AI applications? Have you built similar projects? Let me know in the comments or reach out on [Twitter/LinkedIn].*
+*Have you built similar privacy-first applications? What's your experience with self-hosted AI? Let me know your thoughts.*
+
+## About the Author
+
+I'm a Platform Engineer Architect specializing in cloud-native technologies and engineering leadership. I focus on building efficient infrastructure and collaborative engineering processes.
+
+[Connect with me on LinkedIn](https://www.linkedin.com/in/ramiroalvfer/) or [contact me](/contact) for more information.
 
