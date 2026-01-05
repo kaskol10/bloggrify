@@ -107,6 +107,13 @@ export default defineAppConfig({
 
     portfolio: [
         {
+            name: 'AWS Certified Generative AI Developer - Professional',
+            description: 'AWS Certified Generative AI Developer - Professional certification from AWS. 2026-01-04',
+            url: 'https://k8scockpit.tech/images/certs/AWSCertifiedGenerativeAIDeveloper-Professional.pdf',
+            image: '/images/certs/AWSCertifiedGenerativeAIDeveloper-Professional.png',
+            status: 'certification',
+        },
+        {
             name: 'Certified Cloud Native Platform Engineering ',
             description: 'Certified Cloud Native Platform Engineering certification from The Linux Foundation. 2025-11-29',
             url: 'https://k8scockpit.tech/images/certs/cnpe.pdf',
